@@ -1,0 +1,41 @@
+---
+title: Tag Archive
+pagination:
+  data: collections
+  size: 1
+  alias: tag
+  filter:
+    - all
+    - nav
+    - post
+    - posts
+    - tagList
+    - postFeed
+  addAllPagesToCollections: true
+permalink: /tags/{{ tag }}/
+---
+
+{% extends 'layouts/page.njk' %}
+
+{# Post list content #}
+{% set postListHeadingLevel = '2' %}
+{% set postListHeading = 'Posts' %}
+{% set postListItems = collections[tag] %}
+
+{% block content %}
+  <main id="main-content" tabindex="-1"  class="page">
+    <div class="page__header-wrapper">
+      <div class="page__inner-wrapper">
+        <h1>Tags</h1>
+      </div>
+    </div>
+
+    <div class="class inner-wrapper">
+      <h1>Posts tagged “{{ tag }}”</h1>
+
+      {% include "partials/components/post-list.njk" %}
+      {% include "partials/components/pagination.njk" %}
+    </div>
+
+  </main>
+{% endblock %}

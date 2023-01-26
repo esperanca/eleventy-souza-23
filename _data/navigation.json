@@ -1,0 +1,19 @@
+{
+  "items": [
+    {
+      "text": "about",
+      "url": "/about",
+      "external": false
+    },
+    {
+      "text": "blog",
+      "url": "/archive",
+      "external": false
+    },
+    {
+      "text": "contact",
+      "url": "/contact",
+      "external": false
+    }
+  ]
+}

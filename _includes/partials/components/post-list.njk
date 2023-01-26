@@ -1,0 +1,24 @@
+{% if postListItems.length %}
+  <section class="post-list">
+    <div>
+      <ol class="post-list__items" reversed>
+        {% for item in postListItems %}
+          {% if item
+            .date
+            .getTime() <= global
+            .now %}
+            <li class="post-list__item">
+              <p class="">
+                <time datetime="{{ item.date | dateFilter }}">{{ item.date | dateFilter }}</time>
+              </p>
+              <h3 class="">
+                <a href="{{ item.url }}" class="post-list__link" rel="bookmark">{{ item.data.title }}</a>
+              </h3>
+
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ol>
+    </div>
+  </section>
+{% endif %}

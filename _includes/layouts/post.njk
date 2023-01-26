@@ -1,25 +1,47 @@
----
-layout: layouts/base.njk
----
-<h1>{{ title }}</h1>
+{% extends 'layouts/page.njk' %}
 
-<ul class="post-metadata">
-	<li><time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></li>
-	{%- for tag in tags | filterTagList %}
-	{%- set tagUrl %}/tags/{{ tag | slugify }}/{% endset %}
-	<li><a href="{{ tagUrl }}" class="post-tag">{{ tag }}</a>{%- if not loop.last %}, {% endif %}</li>
-	{%- endfor %}
-</ul>
+{% block content %}
+  <main id="main-content" tabindex="-1" class="page" >
+    <div class="page__header-wrapper">
+      <div class="page__inner-wrapper">
+        <h1>Blog</h1>
+      </div>
+    </div>
+
+    <div>
+      <div class="inner-wrapper">
+        <header>
+          <h2>{{title}}</h2>
+
+          <p class="meta-info">
+            {% if date %}
+              <time datetime="{{ date | postDate }}" class="dt-published">{{ date | postDate }}</time>
+            {% endif %}
+            <span>— {{ helpers.getReadingTime(content) }} minute read</span>
+          </p>
+        </header>
+
+        <article>
+          <div class="page__content">
+            {{ content | safe }}
+          </div>
+
+          {% if tags %}
+            <footer class="post__footer">
+              <h2 class="">Filed under:</h2>
+              <ul class="nav__list">
+                {% for item in tags %}
+                  <li class="nav__item">
+                    <a href="/tags/{{ item }}">{{ item }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </footer>
+          {% endif %}
+        </article>
+      </div>
+    </div>
+  </main>
+{% endblock %}
 
 {{ content | safe }}
-
-{%- if collections.posts %}
-{%- set previousPost = collections.posts | getPreviousCollectionItem %}
-{%- set nextPost = collections.posts | getNextCollectionItem %}
-{%- if nextPost or previousPost %}
-<ul class="links-nextprev">
-	{%- if previousPost %}<li>Previous: <a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a></li>{% endif %}
-	{%- if nextPost %}<li>Next: <a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a></li>{% endif %}
-</ul>
-{%- endif %}
-{%- endif %}
